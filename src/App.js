@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import CardList from './CardList';
+import CardForm from './CardForm';
 
 class App extends Component {
+
+  state = {
+    cards: [
+      {id: 1, question: "Question 1", answer: "Answer 1"},
+      {id: 2, question: "Question 2", answer: "Answer 2"},
+      {id: 3, question: "Question 3", answer: "Answer 3"}
+    ]
+  }
+
+  getUniqId = () => {
+    return Math.floor(( 1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1)
+  }
+
+  /*addItem = (question) => {
+    const { cards } = this.state
+    const card = { id: this.getUniqId(), question }
+    this.setState({ cards: [card, ...cards] })
+  }*/
+
   render() {
+    const { cards } = this.state
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <CardForm addItem={this.addItem} />
+        <CardList name="Flashcards" items={cards} />
       </div>
     );
   }
 }
 
 export default App;
+
+
+
